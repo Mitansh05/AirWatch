@@ -22,7 +22,7 @@ if input1 == "1":
     get_aircraft_data(CallSign)
 
 elif input1 == "2":
-    country = input("\nEnter your county of choice: ")
+    country = input("\nEnter your country of choice: ")
     count_aircrafts_in_country(country)
     count = count_aircrafts_in_country(country)
     print("\nTotal Count of Aircrafts in " + country + ": " + str(count) + "\n")
