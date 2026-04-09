@@ -10,19 +10,30 @@ from config import API_URL
 
 request = requests.get(API_URL)
 
-print("\nRequest status code: "+ str(request.status_code) +"\n")
+print("\n\nRequest status code: "+ str(request.status_code) +"\n")
 
 flights = request.json().get("states")
 
-CallSign = "UAL1777 "
-def get_aircraft_data():
+CallSign = "Default"
+
+def count_aircrafts_in_country(country):
+    count = 0
+    for plane in flights:
+        if plane[2] == country:
+            count += 1
+    return count
+
+def get_aircraft_data(CallSign):
     for plane in flights:
         if plane[1] == CallSign:
-            print("Data format - plane[1] = CallSign, plane[2] = Country of Origin, plane[3] = Last Position Update, plane[4] = Longitude, plane[5] = Latitude, plane[6] = Altitude, plane[7] = On Ground, plane[8] = Velocity\n")
-            print("Data of the Aircraft with the CallSign " + CallSign + " is as follows:\n")
-            print(plane[1], plane[2], plane[3], plane[4], plane[5], plane[6], plane[7], plane[8])
-            print()
-            return(plane[1], plane[2], plane[3], plane[4], plane[5], plane[6], plane[7], plane[8])
+            print("Data of the Aircraft with the CallSign '" + CallSign + "' is as follows:\n")
+            print( "CallSign: " + plane[1])
+            print("Country of Origin: " + plane[2])
+            print("Longitude: " + str(plane[5]))
+            print("Latitude: " + str(plane[6]))
+            print("On Ground: " + str(plane[8]))
+            print("\n")
+            break
         else:
-            print("No Aircraft with the CallSign " + CallSign + " was found.")
-            return "No Aircraft with the CallSign " + CallSign + " was found."
+            print("\n\nNo Aircraft with the CallSign" + CallSign + " was found.")
+            break
