@@ -19,21 +19,28 @@ CallSign = "Default"
 def count_aircrafts_in_country(country):
     count = 0
     for plane in flights:
-        if plane[2] == country:
+        if plane[2] and plane[2].strip() == country:
             count += 1
     return count
 
 def get_aircraft_data(CallSign):
+    found = False
+
     for plane in flights:
-        if plane[1] == CallSign:
-            print("Data of the Aircraft with the CallSign '" + CallSign + "' is as follows:\n")
+
+        if CallSign.strip() == plane[1].strip():
+            print("Data of the Aircraft with the CallSign '" + CallSign.strip() + "' is as follows:\n")
             print( "CallSign: " + plane[1])
             print("Country of Origin: " + plane[2])
             print("Longitude: " + str(plane[5]))
             print("Latitude: " + str(plane[6]))
             print("On Ground: " + str(plane[8]))
             print("\n")
-            break
-        else:
-            print("\n\nNo Aircraft with the CallSign" + CallSign + " was found.")
-            break
+            found = True
+        
+    if not found:
+            print("\n\nNo Aircraft with the CallSign " + CallSign + " was found.")
+    
+
+us_planes = count_aircrafts_in_country("United States")
+
